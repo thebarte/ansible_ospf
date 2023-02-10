@@ -1,0 +1,17 @@
+---
+- name: Configure R1
+  hosts: R1
+  gather_facts: false
+  connection: local
+
+  tasks:
+  - name: Gather only the config and default facts
+    cisco.ios.ios_facts:
+      gather_subset: all
+      gather_network_resources: ospfv2
+
+  - debug:
+     msg: 
+     - " IPs Assigned --> {{ ansible_net_all_ipv4_addresses }}"
+     - "Added into OSPF"
+     - "{{ ansible_network_resources }}"
